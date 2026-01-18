@@ -7,18 +7,39 @@
 - 仓库门面，包含：简介、核心特性、快速开始、其它重要文件的说明和索引
 -->
 
-# 项目名称
+# Vibe Coding Hello World
 
-这是一个使用React和TypeScript构建的Web应用程序。
+一个简单而美观的Hello World网站项目。
 
-## 安装
+## 📁 项目文件
 
-npm install
+- `index.html` - 主页面文件，包含精美的Hello World展示
+- `start_server.bat` - 一键启动本地服务器的批处理文件
 
-## 使用
+## 🚀 快速开始
 
-npm start
-示例代码和用法
+### 方法一：直接打开（推荐新手）
+
+直接双击 `index.html` 文件，它会在你的默认浏览器中打开。
+
+### 方法二：使用本地服务器
+
+1. 确保已安装 Python（推荐Python 3.x）
+2. 双击运行 `start_server.bat` 文件
+3. 打开浏览器，访问 `http://localhost:8000`
+
+或者在命令行中运行：
+```bash
+python -m http.server 8000
+```
+
+## 📝 说明
+
+这个网站使用纯HTML和CSS创建，具有以下特点：
+- 🎨 渐变背景色
+- ✨ 动画效果
+- 📱 响应式设计
+- 🌈 现代化UI
 
 ## 贡献
-如何参与贡献
+欢迎提交问题和贡献代码！
