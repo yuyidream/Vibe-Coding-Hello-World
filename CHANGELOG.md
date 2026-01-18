@@ -6,7 +6,8 @@ bug修复
 breaking changes（破坏性变更）
 注意事项等
 -->
-# 第一次的词---Help me build a local website. 网站上面显示Hello World。
+# 第一次的提示词---Help me build a local website. 网站上面显示Hello World。
+  一句话生成了本地网站，效果还不错。
 ## 2026年1月18日
 
 ### 新增功能
