@@ -107,8 +107,59 @@
     <div class="circle"></div>
     
     <div class="container">
-        <h1>Hello World</h1>
-        <p class="subtitle">🎉 欢迎来到我的网站 🎉</p>
+        <h1 id="mainTitle">Hello World</h1>
+        <p class="subtitle" id="subTitle">🎉 欢迎来到我的网站 🎉</p>
     </div>
+
+    <script>
+        // API基础路径
+        const API_BASE = '/api';
+
+        // 页面加载时获取配置并记录访问日志
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 加载网站配置
+            await loadConfig();
+            
+            // 记录访问日志
+            recordVisit();
+        });
+
+        // 加载网站配置
+        async function loadConfig() {
+            try {
+                const response = await fetch(`${API_BASE}/config`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    // 更新标题和副标题
+                    document.getElementById('mainTitle').textContent = data.data.main_title;
+                    document.getElementById('subTitle').textContent = data.data.sub_title;
+                    // 同时更新页面标题
+                    document.title = data.data.main_title;
+                }
+            } catch (error) {
+                console.error('加载配置失败:', error);
+                // 失败时使用默认内容
+            }
+        }
+
+        // 记录访问日志
+        async function recordVisit() {
+            try {
+                await fetch(`${API_BASE}/log`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch (error) {
+                // 静默失败，不影响用户体验
+                console.error('记录访问日志失败:', error);
+            }
+        }
+    </script>
 </body>
 </html>

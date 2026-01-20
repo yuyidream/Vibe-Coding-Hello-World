@@ -8,6 +8,64 @@ breaking changes（破坏性变更）
 -->
 # 更新日志
 
+## 2026年1月19日 - v3.0 管理后台功能
+
+### 🎉 重大功能更新
+- ✨ 添加完整的Web管理后台系统
+  - 安全的登录验证机制
+  - 动态内容管理（实时修改标题和副标题）
+  - 访问日志查看和统计
+  - 响应式设计，支持移动端
+
+### 🗄️ 数据库集成
+- ✅ 集成华为云RDS MySQL 5.7.38
+- ✅ 完整的数据库操作层
+- ✅ 自动化数据库初始化脚本
+
+### 🔧 后端开发
+- ✨ Flask RESTful API后端
+  - 公开API：获取配置、记录日志
+  - 管理API：登录认证、内容更新、日志查询
+- ✅ Gunicorn生产环境部署
+- ✅ Systemd服务管理
+- ✅ 环境变量配置管理
+
+### 🎨 前端增强
+- ✅ 主页支持动态内容加载
+- ✅ 精美的管理后台界面
+- ✅ 实时API交互
+- ✅ 访问日志自动记录
+
+### 📦 新增文件
+- `backend/app.py` - Flask应用主文件
+- `backend/database.py` - MySQL数据库操作
+- `backend/config.py` - 配置管理
+- `backend/init_db.py` - 数据库初始化脚本
+- `backend/requirements.txt` - Python依赖
+- `admin.html` - 管理后台页面
+- `static/admin.js` - 管理后台JavaScript
+- `deploy-backend.sh` - 自动化部署脚本
+- `update-nginx.sh` - Nginx配置更新脚本
+- `nginx-backend.conf` - Nginx反向代理配置
+- `hello-world-backend.service` - Systemd服务文件
+- `管理后台部署指南.md` - 完整部署文档
+- `README-管理后台.md` - 功能说明文档
+
+### 🔐 安全特性
+- ✅ 密码加密存储（Werkzeug）
+- ✅ Session会话管理
+- ✅ API权限验证
+- ✅ 安全头部配置
+- ✅ 环境变量管理敏感信息
+
+### 📚 文档
+- ✅ 详细的部署指南
+- ✅ API接口文档
+- ✅ 故障排查指南
+- ✅ 安全加固建议
+
+---
+
 ## 2026年1月18日 - v2.0 华为云部署支持
 
 ### 🎉 重大更新

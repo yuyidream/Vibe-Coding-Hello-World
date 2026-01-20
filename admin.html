@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - Hello World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        /* 登录表单样式 */
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        /* 管理面板样式 */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .welcome {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome h2 {
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .welcome .user-info {
+            color: #666;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* 日志列表样式 */
+        .logs-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .log-item .log-time {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .log-item .log-ip {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .log-item .log-agent {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-info {
+            padding: 8px 16px;
+            color: #666;
+        }
+
+        /* 消息提示样式 */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .welcome {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                flex: 1;
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 管理后台</h1>
+            <p>Hello World 网站内容管理系统</p>
+        </div>
+
+        <div class="content">
+            <!-- 登录表单 -->
+            <div id="loginForm" class="login-form">
+                <div id="loginMessage" class="message"></div>
+                
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" required autocomplete="username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                    </div>
+                    
+                    <button type="submit" class="btn" id="loginBtn">登录</button>
+                </form>
+            </div>
+
+            <!-- 管理面板 -->
+            <div id="adminPanel" class="admin-panel">
+                <div class="welcome">
+                    <div>
+                        <h2>欢迎回来！</h2>
+                        <p class="user-info">管理员: <span id="currentUser"></span></p>
+                    </div>
+                    <button onclick="handleLogout()" class="btn btn-secondary" style="width: auto; padding: 10px 24px;">退出登录</button>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('config')">内容管理</button>
+                    <button class="tab" onclick="switchTab('logs')">访问日志</button>
+                </div>
+
+                <!-- 内容管理标签 -->
+                <div id="configTab" class="tab-content active">
+                    <div id="configMessage" class="message"></div>
+                    
+                    <div class="card">
+                        <h3>编辑网站内容</h3>
+                        <form onsubmit="handleUpdateConfig(event)">
+                            <div class="form-group">
+                                <label for="mainTitle">主标题</label>
+                                <input type="text" id="mainTitle" name="mainTitle" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subTitle">副标题</label>
+                                <input type="text" id="subTitle" name="subTitle">
+                            </div>
+                            
+                            <button type="submit" class="btn" id="saveBtn">保存修改</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 访问日志标签 -->
+                <div id="logsTab" class="tab-content">
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalLogs">-</div>
+                            <div class="stat-label">总访问量</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>访问日志</h3>
+                        <div id="logsContainer" class="logs-container">
+                            <div class="loading">正在加载日志...</div>
+                        </div>
+                        
+                        <div class="pagination" id="logsPagination">
+                            <button onclick="loadLogs(currentPage - 1)" id="prevPage">上一页</button>
+                            <span class="page-info" id="pageInfo">第 1 页</span>
+                            <button onclick="loadLogs(currentPage + 1)" id="nextPage">下一页</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/admin.js"></script>
+</body>
+</html>
