@@ -25,6 +25,13 @@ export const getConfig = async (): Promise<Config> => {
   return response.data.data
 }
 
+/**
+ * 记录访问日志
+ */
+export const recordAccessLog = async (): Promise<void> => {
+  await apiClient.post('/log')
+}
+
 // ==================== 管理员 API ====================
 
 /**
