@@ -25,8 +25,10 @@ app = FastAPI(
     title="Hello World API",
     description="Hello World 网站管理后台 API",
     version="2.0.0",
-    docs_url="/api/docs",      # Swagger UI
-    redoc_url="/api/redoc",    # ReDoc
+    openapi_version="3.1.0",    # 指定 OpenAPI 版本
+    openapi_url="/api/openapi.json",  # OpenAPI JSON 路径
+    docs_url="/api/docs",       # Swagger UI
+    redoc_url="/api/redoc",     # ReDoc
 )
 
 # 配置CORS
